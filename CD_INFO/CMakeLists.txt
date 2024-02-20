@@ -24,6 +24,7 @@ if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
         ${PROJECT_SOURCES}
         album.h album.cpp
         cdmodel.h cdmodel.cpp
+        bardelegate.h bardelegate.cpp
     )
 # Define target properties for Android with Qt 6 as:
 #    set_property(TARGET CD_INFO APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR

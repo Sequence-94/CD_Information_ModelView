@@ -21,7 +21,7 @@ public:
 
 public slots:
     void addAlbum(const QString &composer, const QString &albumName, double replacementValue, int rating);
-    void deleteAlbum(const QModelIndexList& indexes);
+    void deleteAlbum(const QModelIndexList& selectedIndexes);
 
 private:
     QList<Album> albums;

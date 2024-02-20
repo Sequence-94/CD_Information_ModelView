@@ -4,6 +4,7 @@
 #include <QHeaderView>
 #include<QModelIndexList>
 #include<QMessageBox>
+#include"bardelegate.h"
 
 
 Widget::Widget(QWidget *parent)
@@ -35,6 +36,12 @@ void Widget::handleAddButtonClicked()
 
     // Pass data to the addAlbum function in CDModel
     model->addAlbum(composer, title, replacementValue, rating);
+
+    // Erase input
+    composerInput->clear();
+    titleInput->clear();
+    replacementInput->setValue(0.00);
+    ratingInput->setValue(0);
 }
 
 void Widget::handleDeleteButtonClicked()
@@ -75,6 +82,15 @@ void Widget::CDGui()
 
     // last header stretch
     view->horizontalHeader()->setStretchLastSection(true);
+
+    //sort by clicking header
+    view->setSortingEnabled(true); // Enable sorting by clicking on the header
+
+
+    //show the delegate
+    BarDelegate *delegate = new BarDelegate(this);
+
+    view->setItemDelegateForColumn(3,delegate);
 
 
     layout->addWidget(view,2,0,1,5);
