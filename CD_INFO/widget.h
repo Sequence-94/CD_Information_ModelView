@@ -16,6 +16,8 @@ class Widget : public QWidget
 public:
     Widget(QWidget *parent = nullptr);
     ~Widget();
+private slots:
+    void handleAddButtonClicked();
 private:
     void CDGui();
     CDModel *model;

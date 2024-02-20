@@ -1,6 +1,8 @@
 #include "widget.h"
 #include<QGridLayout>
 #include<QLabel>
+#include <QHeaderView>
+
 
 Widget::Widget(QWidget *parent)
     :
@@ -10,9 +12,28 @@ Widget::Widget(QWidget *parent)
     deleteButton(new QPushButton("Delete")),model(new CDModel),view(new QTableView)
 {
     CDGui();
+    setWindowTitle("Music");
+    setFixedSize(650,400);
+
+    replacementInput->setRange(0,9999);
+    ratingInput->setRange(0,100);
+
+
 }
 
 Widget::~Widget() {}
+
+void Widget::handleAddButtonClicked()
+{
+    // Retrieve data from line edits
+    QString composer = composerInput->text();
+    QString title = titleInput->text();
+    double replacementValue = replacementInput->value();
+    int rating = ratingInput->value();
+
+    // Pass data to the addAlbum function in CDModel
+    model->addAlbum(composer, title, replacementValue, rating);
+}
 
 void Widget::CDGui()
 {
@@ -21,6 +42,8 @@ void Widget::CDGui()
     QLabel *titleLabel(new QLabel("Album title"));
     QLabel *replacementLabel(new QLabel("Replacement cost (R)"));
     QLabel *ratingLabel(new QLabel("Rating"));
+
+
 
     layout->addWidget(composerLabel,0,0);
     layout->addWidget(titleLabel,0,1);
@@ -34,11 +57,18 @@ void Widget::CDGui()
     layout->addWidget(ratingInput,1,3);
     layout->addWidget(addButton,1,4);
 
-    //view
+    //the view
     view->setModel(model);
+
+    // last header stretch
+    view->horizontalHeader()->setStretchLastSection(true);
+
+
     layout->addWidget(view,2,0,1,5);
 
     layout->addWidget(deleteButton,3,4);
+
+    connect(addButton, &QPushButton::clicked, this, &Widget::handleAddButtonClicked);
 
 
 }
