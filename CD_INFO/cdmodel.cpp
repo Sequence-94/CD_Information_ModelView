@@ -1,6 +1,7 @@
 #include "cdmodel.h"
 #include"album.h"
 #include"widget.h"
+#include<QMessageBox>
 
 CDModel::CDModel(QObject *parent)
     : QStandardItemModel{parent}
@@ -46,8 +47,10 @@ void CDModel::addAlbum(const QString &composer, const QString &albumName, double
     appendRow(rowItems);
 }
 
-void CDModel::deleteAlbum()
+void CDModel::deleteAlbum(const QModelIndexList& selectedIndexes)
 {
-
+    for (const QModelIndex& index : selectedIndexes) {
+        this->removeRow(index.row());
+    }
 }
 

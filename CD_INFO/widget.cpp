@@ -2,6 +2,8 @@
 #include<QGridLayout>
 #include<QLabel>
 #include <QHeaderView>
+#include<QModelIndexList>
+#include<QMessageBox>
 
 
 Widget::Widget(QWidget *parent)
@@ -33,6 +35,17 @@ void Widget::handleAddButtonClicked()
 
     // Pass data to the addAlbum function in CDModel
     model->addAlbum(composer, title, replacementValue, rating);
+}
+
+void Widget::handleDeleteButtonClicked()
+{
+    QModelIndexList selectedIndex = view->selectionModel()->selectedRows();
+    if(!selectedIndex.isEmpty()){
+        model->deleteAlbum(selectedIndex);
+    }
+    else{
+        QMessageBox::warning(this, "Warning", "No row selected.");
+    }
 }
 
 void Widget::CDGui()
@@ -69,6 +82,7 @@ void Widget::CDGui()
     layout->addWidget(deleteButton,3,4);
 
     connect(addButton, &QPushButton::clicked, this, &Widget::handleAddButtonClicked);
+    connect(deleteButton, &QPushButton::clicked, this, &Widget::handleDeleteButtonClicked);
 
 
 }

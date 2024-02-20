@@ -18,6 +18,8 @@ public:
     ~Widget();
 private slots:
     void handleAddButtonClicked();
+    void handleDeleteButtonClicked();
+
 private:
     void CDGui();
     CDModel *model;

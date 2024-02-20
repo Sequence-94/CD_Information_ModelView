@@ -3,6 +3,7 @@
 #include "album.h"
 #include"cdmodel.h"
 #include<QList>
+#include<QModelIndexList>
 
 #include <QStandardItemModel>
 #include <QObject>
@@ -20,7 +21,7 @@ public:
 
 public slots:
     void addAlbum(const QString &composer, const QString &albumName, double replacementValue, int rating);
-    void deleteAlbum();
+    void deleteAlbum(const QModelIndexList& indexes);
 
 private:
     QList<Album> albums;
