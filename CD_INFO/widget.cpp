@@ -5,6 +5,8 @@
 #include<QModelIndexList>
 #include<QMessageBox>
 #include"bardelegate.h"
+#include<QPainter>
+#include<QStyleOptionProgressBar>
 
 
 Widget::Widget(QWidget *parent)
@@ -28,13 +30,13 @@ Widget::~Widget() {}
 
 void Widget::handleAddButtonClicked()
 {
-    // Retrieve data from line edits
+
     QString composer = composerInput->text();
     QString title = titleInput->text();
     double replacementValue = replacementInput->value();
     int rating = ratingInput->value();
 
-    // Pass data to the addAlbum function in CDModel
+
     model->addAlbum(composer, title, replacementValue, rating);
 
     // Erase input
@@ -54,6 +56,8 @@ void Widget::handleDeleteButtonClicked()
         QMessageBox::warning(this, "Warning", "No row selected.");
     }
 }
+
+
 
 void Widget::CDGui()
 {
@@ -86,6 +90,8 @@ void Widget::CDGui()
     //sort by clicking header
     view->setSortingEnabled(true); // Enable sorting by clicking on the header
 
+    //allow edting of column 2
+    view->setEditTriggers(QTableView::DoubleClicked| QTableView::EditKeyPressed);
 
     //show the delegate
     BarDelegate *delegate = new BarDelegate(this);
@@ -99,6 +105,7 @@ void Widget::CDGui()
 
     connect(addButton, &QPushButton::clicked, this, &Widget::handleAddButtonClicked);
     connect(deleteButton, &QPushButton::clicked, this, &Widget::handleDeleteButtonClicked);
+    connect(model,&CDModel::costExceeded, this, &Widget::changeRowColor);
 
 
 }

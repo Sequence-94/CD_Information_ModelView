@@ -1,7 +1,7 @@
 #ifndef ALBUM_H
 #define ALBUM_H
 
-#include <QString>
+#include<QString>
 
 class Album
 {
